@@ -1,28 +1,41 @@
 ﻿using System;
 
-namespace InheritanceExample
+namespace AbstractClassExample
 {
-    class Animal
+    abstract class Shape
     {
-        public virtual void MakeSound()
+        public abstract double GetArea();
+    }
+
+    class Circle : Shape
+    {
+        public double Radius { get; set; }
+
+        public Circle(double radius)
         {
-            Console.WriteLine("Some generic sound");
+            Radius = radius;
+        }
+
+        public override double GetArea()
+        {
+            return Math.PI * Radius * Radius;
         }
     }
 
-    class Dog : Animal
+    class Rectangle : Shape
     {
-        public override void MakeSound()
-        {
-            Console.WriteLine("Bark");
-        }
-    }
+        public double Width { get; set; }
+        public double Height { get; set; }
 
-    class Cat : Animal
-    {
-        public override void MakeSound()
+        public Rectangle(double width, double height)
         {
-            Console.WriteLine("Meow");
+            Width = width;
+            Height = height;
+        }
+
+        public override double GetArea()
+        {
+            return Width * Height;
         }
     }
 
@@ -30,13 +43,11 @@ namespace InheritanceExample
     {
         static void Main(string[] args)
         {
-            Animal genericAnimal = new Animal();
-            Dog dog = new Dog();
-            Cat cat = new Cat();
+            Shape circle = new Circle(5);
+            Shape rectangle = new Rectangle(4, 6);
 
-            genericAnimal.MakeSound(); // Some generic sound
-            dog.MakeSound();           // Bark
-            cat.MakeSound();           // Meow
+            Console.WriteLine($"Circle Area: {circle.GetArea():F2}");      // Circle Area: 78.54
+            Console.WriteLine($"Rectangle Area: {rectangle.GetArea()}");   // Rectangle Area: 24
 
             Console.ReadLine();
         }
